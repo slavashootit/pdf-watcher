@@ -56,7 +56,7 @@ class MainActivity : Activity() {
             letterSpacing = -0.02f
         })
         col.addView(TextView(this).apply {
-            text = "Швидкий перегляд PDF. Без реклами."
+            text = "Швидкий перегляд PDF. Без реклами. Оновлюється сам."
             setTextColor(getColor(R.color.text_secondary))
             setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f)
             setPadding(0, dpi(4), 0, dpi(24))

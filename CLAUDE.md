@@ -29,3 +29,17 @@ SDK: `/opt/homebrew/share/android-commandlinetools` (brew cask), AGP 8.7.3, Grad
 ## Тест
 Емулятор `pdfw35` (Android 15, arm64). Тестові PDF генерує скрипт у scratchpad (pypdf) — за потреби
 написати наново: багатосторінковий з латинським текстом, альбомна й висока сторінки, запаролений (1234).
+
+## Оновлення через GitHub (з 1.1, 2026-11-20)
+Публічне репо `slavashootit/pdf-watcher`. Застосунок сам перевіряє `releases/latest` (раз на 6 год, `Updater.kt`),
+порівнює `tag_name` без `v` з `versionName` і пропонує «Є оновлення X» → завантажує `.apk`-асет у
+`cacheDir/update` → системний встановлювач через `UpdateProvider`. Ручна перевірка — «Перевірити оновлення».
+Секрети (`release.keystore`, `keystore.properties`, `local.properties`) у `.gitignore` — не комітити.
+
+**Як випустити реліз:**
+1. Підняти `versionCode` (+1) і `versionName` (напр. `1.2`) в `app/build.gradle.kts`.
+2. `./gradlew assembleRelease` → `cp app/build/outputs/apk/release/app-release.apk ~/Downloads/PDF-Watcher.apk`.
+3. `git commit` + `git push`.
+4. `gh release create v<versionName> ~/Downloads/PDF-Watcher.apk --title "..." --notes "..."` (нотатки українською,
+   тег = `versionName` з `v`; рівно один `.apk`-асет).
+Без релізу на GitHub телефони оновлення не побачать; не той ключ підпису — Android не поставить поверх.
